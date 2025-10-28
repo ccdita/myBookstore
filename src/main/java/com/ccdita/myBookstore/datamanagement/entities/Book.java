@@ -1,15 +1,32 @@
 package com.ccdita.myBookstore.datamanagement.entities;
 
+import jakarta.persistence.*;
+
 /**
  * Represents a Book object; stores information about each book
  */
+@Entity // Mark this class as an entity class
+@Table(name="book") // Map this class to the "book" mySQL table
 public class Book {
 
+    @Id // ID will serve as the primary key for the user table
+    @GeneratedValue(strategy= GenerationType.IDENTITY) // mySQL will handle auto-incrementing of the ID
+    @Column(name="id") // Map fields to mySQL table columns with the specified name
     private int id;
+
+    @Column(name="title")
     private String title;
+
+    @Column(name="author")
     private String author;
+
+    @Column(name="genre")
     private String genre;
+
+    @Column(name="price")
     private double price;
+
+    @Column(name="for_sale")
     private boolean forSale;
 
     /**
