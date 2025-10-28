@@ -1,4 +1,4 @@
-package com.ccdita.myBookstore.entities;
+package com.ccdita.myBookstore.datamanagement.entities;
 
 /**
  * Represents a Book object; stores information about each book

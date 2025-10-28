@@ -1,4 +1,4 @@
-import com.ccdita.myBookstore.entities.Book;
+import com.ccdita.myBookstore.datamanagement.entities.Book;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
