@@ -1,4 +1,4 @@
-package com.ccdita.myBookstore.entities;
+package com.ccdita.myBookstore.datamanagement.entities;
 
 import jakarta.persistence.*;
 
@@ -26,9 +26,6 @@ public class User {
     @Column(name="readercash")
     private double readerCash;
 
-    private ArrayList<Book> booksPurchased;
-    private ArrayList<Book> booksSold;
-
     /**
      * Public no-argument constructor as required by a Spring entity class
      */
@@ -44,8 +41,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.readerCash = 0.00;
-        this.booksPurchased = new ArrayList<>();
-        this.booksSold = new ArrayList<>();
     }
 
     /**
@@ -62,21 +57,5 @@ public class User {
      */
     public double getReaderCash() {
         return this.readerCash;
-    }
-
-    /**
-     * Returns a list of books the user has purchased
-     * @return booksPurchased by the user
-     */
-    public ArrayList<Book> getBooksPurchased() {
-        return this.booksPurchased;
-    }
-
-    /**
-     * Returns a list of books the user has sold
-     * @return booksSold by the user
-     */
-    public ArrayList<Book> getBooksSold() {
-        return this.booksSold;
     }
 }
