@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class ConsoleUI {
 
     // Number of options
-    private static final int MAIN_MENU_OPTIONS = 2;
+    private static final int MAIN_MENU_OPTIONS = 3;
 
     private MenuUI menuUI;
     private UserInput userInput;

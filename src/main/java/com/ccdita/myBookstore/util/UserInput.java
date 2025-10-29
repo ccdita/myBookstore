@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+/**
+ * Gets user input
+ */
 @Component
 public class UserInput {
 
