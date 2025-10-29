@@ -10,16 +10,16 @@ import java.util.Scanner;
 @Component
 public class UserInput {
 
-    private static Scanner scanner = new Scanner(System.in);
     private String optionPrompt = "Select an option:";
 
     /**
      * Gets the user's input for a given list of options
      * Useful for choosing from a menu of options
      * @param numOptions, number of options the user can choose from
+     * @param scanner, Scanner object for user input
      * @return user's input
      */
-    public int getUserOption(int numOptions) {
+    public int getUserOption(int numOptions, Scanner scanner) {
         System.out.println(optionPrompt); // Display the prompt
         // Initialize the following variables since there is no input yet
         int userInput = -1;
