@@ -10,8 +10,6 @@ import java.util.Scanner;
 @Component
 public class UserInput {
 
-    private String optionPrompt = "Select an option:";
-
     /**
      * Gets the user's input for a given list of options
      * Useful for choosing from a menu of options
@@ -20,7 +18,7 @@ public class UserInput {
      * @return user's input
      */
     public int getUserOption(int numOptions, Scanner scanner) {
-        System.out.println(optionPrompt); // Display the prompt
+        System.out.println("Select an option:"); // Display the prompt
         // Initialize the following variables since there is no input yet
         int userInput = -1;
         boolean isValidOption = false;
@@ -32,17 +30,30 @@ public class UserInput {
                 userInput = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Please enter an integer input.");
-                scanner.nextLine();
                 continue;
             }
             // If the user's input can be cast into an integer, check that it is a valid option
             if (userInput < 1 || userInput > numOptions) {
                 System.out.println("Please enter a valid option from the list.");
-                scanner.nextLine();
                 continue;
             }
             isValidOption = true; // If the user's input passes all checks
         }
+        return userInput;
+    }
+
+    /**
+     * Gets a String input from the user
+     * @param prompt to ask the user
+     * @param scanner, Scanner object for user input
+     * @return user's String input
+     */
+    public String getUserString(String prompt, Scanner scanner) {
+        String userInput = "";
+        do { // Prompt the user until they enter non-empty input
+            System.out.println(prompt);
+            userInput = scanner.nextLine();
+        } while(userInput.isEmpty());
         return userInput;
     }
 }

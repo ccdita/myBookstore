@@ -31,4 +31,18 @@ public class UserInputTest {
         assertEquals(7, userInput.getUserOption(7, scanner));
         scanner.close();
     }
+
+    @Test
+    public void testGetUserStringValidInput() {
+        // Test that getUserString() returns the user's input if it is a valid (non-empty String)
+        String testInput = "testUser";
+        Scanner scanner = new Scanner(testInput);
+        assertEquals("testUser", userInput.getUserString("Username:", scanner));
+        scanner.close();
+
+        testInput = "testPassword";
+        scanner = new Scanner(testInput);
+        assertEquals("testPassword", userInput.getUserString("Password:", scanner));
+        scanner.close();
+    }
 }
