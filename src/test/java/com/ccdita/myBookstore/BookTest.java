@@ -1,3 +1,5 @@
+package com.ccdita.myBookstore;
+
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import org.junit.jupiter.api.Test;
 
