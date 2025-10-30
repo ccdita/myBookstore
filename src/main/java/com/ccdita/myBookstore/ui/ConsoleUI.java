@@ -18,16 +18,19 @@ public class ConsoleUI {
     Scanner scanner = new Scanner(System.in);
 
     private MenuUI menuUI;
+    private LoginRegisterUI loginRegisterUI;
     private UserInput userInput;
 
     /**
      * Construct a ConsoleUI instance with constructor injection
-     * @param menuUI
-     * @param userInput
+     * @param menuUI, instance of MenuUI
+     * @param loginRegisterUI, instance of LoginRegisterUI
+     * @param userInput, instance of UserInput
      */
     @Autowired
-    public ConsoleUI(MenuUI menuUI, UserInput userInput) {
+    public ConsoleUI(MenuUI menuUI, LoginRegisterUI loginRegisterUI, UserInput userInput) {
         this.menuUI = menuUI;
+        this.loginRegisterUI = loginRegisterUI;
         this.userInput = userInput;
     }
 
@@ -44,24 +47,24 @@ public class ConsoleUI {
             menuUI.displayMainMenu();
             int userOption = userInput.getUserOption(MAIN_MENU_OPTIONS, scanner);
 
-            String username = null;
-            String password = null;
+            // TODO: Clean up and abstract login/register to separate class
+            boolean isUserLoggedIn = false;
+            boolean isUserRegistered = false;
             switch(userOption) {
                 case 1: // If the user chooses to log in
                     printHeader("LOG IN");
-                    username = userInput.getUserString("Username:", scanner);
-                    password = userInput.getUserString("Password:", scanner);
+                    isUserLoggedIn = loginRegisterUI.loginUser(scanner);
                     break;
                 case 2: // If the user chooses to create an account
                     printHeader("CREATE AN ACCOUNT");
-                    username = userInput.getUserString("Username:", scanner);
-                    password = userInput.getUserString("Password", scanner);
+                    isUserRegistered = loginRegisterUI.registerUser(scanner);
                 case 3: // Exit the application
                     isRunning = false;
                     continue;
             }
         }
         scanner.close();
+        System.out.println("See you next time!");
     }
 
     /**
