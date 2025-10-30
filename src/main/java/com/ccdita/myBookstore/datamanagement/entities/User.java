@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 
-// TODO: Add and test getPassword() method?
 /**
  * Represents User objects; stores information about each user
  */
@@ -50,6 +49,12 @@ public class User {
     public String getUsername() {
         return this.username;
     }
+
+    /**
+     * Returns the user's password
+     * @return password of user
+     */
+    public String getPassword() { return this.password; }
 
     /**
      * Returns the user's ReaderCash amount
