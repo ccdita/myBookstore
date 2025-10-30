@@ -2,6 +2,9 @@ package com.ccdita.myBookstore.datamanagement;
 
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.NonUniqueResultException;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,5 +35,23 @@ public class UserDAOImpl implements UserDAO {
     @Transactional // Atomic operation; modifies the database
     public void save(User user) {
         entityManager.persist(user);
+    }
+
+    /**
+     * Finds the user based on the given username
+     * @param username to query
+     * @return User object, null if there are no/multiple users found
+     */
+    @Override
+    public User findByUsername(String username) {
+        TypedQuery<User> query = entityManager.createQuery("FROM User WHERE username = :username", User.class);
+        query.setParameter("username", username);
+        User user = null;
+        try {
+            user = query.getSingleResult();
+        } catch(NoResultException | NonUniqueResultException e) {
+            return user;
+        }
+        return user;
     }
 }
