@@ -1,5 +1,6 @@
 package com.ccdita.myBookstore.ui;
 
+import com.ccdita.myBookstore.processor.LoginRegisterService;
 import com.ccdita.myBookstore.util.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,14 +14,17 @@ import java.util.Scanner;
 public class LoginRegisterUI {
 
     private UserInput userInput;
+    private LoginRegisterService loginRegisterService;
 
     /**
      * Constructs a LoginRegisterUI instance with constructor injection
-     * @param userInput
+     * @param userInput, instance of UserInput for getting user's input
+     * @param loginRegisterService, instance of LoginRegisterService
      */
     @Autowired
-    public LoginRegisterUI(UserInput userInput) {
+    public LoginRegisterUI(UserInput userInput, LoginRegisterService loginRegisterService) {
         this.userInput = userInput;
+        this.loginRegisterService = loginRegisterService;
     }
 
     /**
@@ -29,11 +33,12 @@ public class LoginRegisterUI {
      * @return true if the user is successfully logged in, otherwise false
      */
     public boolean loginUser(Scanner scanner) {
-        boolean isUserLoggedIn = false; // Initialize user log-in status to false
         // Prompt user for username and password
         String username = userInput.getUserString("Username:", scanner);
         String password = userInput.getUserString("Password:", scanner);
-        return isUserLoggedIn;
+        // Check if the given credentials are correct
+        // Return true if the user has entered the correct username and password, otherwise false
+        return loginRegisterService.checkCredentials(username, password);
     }
 
     /**
