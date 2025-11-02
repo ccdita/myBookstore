@@ -10,6 +10,11 @@ public interface UserDAO {
     // Persist data of the given User object in the mySQL "user" table
     void save(User user);
 
+    void delete(User user);
+
     // Find the user based on the given username
     User findByUsername(String username);
+
+    // Find the user based on the given ID
+    User findById(int id);
 }
