@@ -44,7 +44,7 @@ public class UserDAOImplTest {
     }
 
     @Test
-    void testSaveUser() {
+    public void testSaveUser() {
         // Test that save() properly saves the given user to the database
         int testId = testUser.getId();
         User savedUser = entityManager.find(User.class, testId);
@@ -58,7 +58,7 @@ public class UserDAOImplTest {
     }
 
     @Test
-    void testDeleteUser() {
+    public void testDeleteUser() {
         // Test that delete() properly removes the given user from the database
         User testUserToDelete = new User("testUserToDelete","testPassword");
         // Test that the user is not yet in the database
@@ -75,5 +75,27 @@ public class UserDAOImplTest {
         // Test that the user is no longer in the database
         assertNull(entityManager.find(User.class, testUserToDelete.getId()), "User is found in database " +
                 "it should have been removed.");
+    }
+
+    @Test
+    public void testFindByUsername() {
+        // Test that findByUsername() properly finds the user with the given username
+        User foundUser = userDAOImpl.findByUsername("testUser");
+        assertNotNull(foundUser, "findByUsername() does not properly find the user with the given username.");
+        assertEquals(testUser.getPassword(), foundUser.getPassword(), "findByUsername() does not properly " +
+                "find the user with the given username.");
+        assertEquals(testUser.getId(), foundUser.getId(), "findByUsername() does not properly find the user " +
+                "with the given username.");
+    }
+
+    @Test
+    public void testFindById() {
+        // Test that findById() properly finds the user with the given ID
+        int testUserId = testUser.getId();
+        User foundUser = userDAOImpl.findById(testUserId);
+        assertNotNull(foundUser, "findById() does not properly find the user with the given ID.");
+        assertEquals(testUser, foundUser, "findById() does not properly find the user with the given ID.");
+        assertEquals(testUser.getPassword(), foundUser.getPassword(), "findById() does not properly find " +
+                "the user with the given ID.");
     }
 }
