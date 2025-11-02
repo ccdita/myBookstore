@@ -38,6 +38,16 @@ public class UserDAOImpl implements UserDAO {
     }
 
     /**
+     * Deletes the given User object from the table
+     * @param user
+     */
+    @Override
+    @Transactional
+    public void delete(User user) {
+        entityManager.remove(user);
+    }
+
+    /**
      * Finds the user based on the given username
      * @param username to query
      * @return User object, null if there are no/multiple users found
@@ -53,5 +63,15 @@ public class UserDAOImpl implements UserDAO {
             return user;
         }
         return user;
+    }
+
+    /**
+     * Finds the user based on the given ID
+     * @param id to query
+     * @return User object, null if there is no user with the given ID
+     */
+    @Override
+    public User findById(int id) {
+        return entityManager.find(User.class, id);
     }
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Represents User objects; stores information about each user
  */
 @Entity // Mark this class as an entity class
-@Table(name="user") // Map the entity class to the mySQL "user" table
+@Table(name="users") // Map the entity class to the mySQL "user" table
 public class User {
 
     @Id // ID will serve as the primary key for the user table
@@ -43,6 +43,14 @@ public class User {
     }
 
     /**
+     * Returns the user's ID
+     * @return id of user
+     */
+    public int getId() {
+        return this.id;
+    }
+
+    /**
      * Returns the user's username
      * @return username of user
      */
@@ -62,5 +70,17 @@ public class User {
      */
     public double getReaderCash() {
         return this.readerCash;
+    }
+
+    /**
+     * Checks if the given User object matches an existing user in the database
+     * Prevents duplicate users (based on the username) from being made
+     * @param o   the reference object with which to compare.
+     * @return true if the given User matches an existing user in the database, otherwise false
+     */
+    @Override
+    public boolean equals(Object o) {
+        User otherUser = (User) o;
+        return this.username.equals(otherUser.getUsername());
     }
 }
