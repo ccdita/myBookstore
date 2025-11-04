@@ -40,7 +40,7 @@ public class UserDAOImplTest {
      */
     @AfterEach
     public void tearDown() {
-        userDAOImpl.delete(testUser);
+        entityManager.remove(testUser);
     }
 
     @Test
