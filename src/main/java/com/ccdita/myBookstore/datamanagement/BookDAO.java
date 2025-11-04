@@ -9,4 +9,7 @@ public interface BookDAO {
 
     // Persist data of the given Book object in the "book" mySQL table
     void save(Book book);
+
+    // Delete the given book from the mySQL table
+    void delete(Book book);
 }

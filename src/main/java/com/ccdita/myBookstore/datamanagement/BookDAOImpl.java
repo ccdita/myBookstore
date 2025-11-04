@@ -33,4 +33,14 @@ public class BookDAOImpl implements BookDAO {
     public void save(Book book) {
         entityManager.persist(book);
     }
+
+    /**
+     * Deletes the given Book object from the mySQL table
+     * @param book to delete
+     */
+    @Override
+    @Transactional
+    public void delete(Book book) {
+        entityManager.remove(book);
+    }
 }
