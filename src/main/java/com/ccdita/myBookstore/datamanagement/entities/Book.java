@@ -50,6 +50,14 @@ public class Book {
     }
 
     /**
+     * Returns the book's ID
+     * @return ID of book
+     */
+    public int getId() {
+        return this.id;
+    }
+
+    /**
      * Returns the book's title
      * @return title of book
      */
@@ -114,5 +122,16 @@ public class Book {
                 "For Sale? " + this.forSale;
 
         return bookInfo;
+    }
+
+    /**
+     * Checks if the given Book object matches an existing book in the database
+     * Prevents duplicate books (based on title and author) from being made
+     * @param o   the reference object with which to compare.
+     * @return true if the given Book matches an existing book in the database, otherwise false
+     */
+    public boolean equals(Object o) {
+        Book otherBook = (Book) o;
+        return (this.title.equals(otherBook.getTitle()) && this.author.equals(otherBook.getAuthor()));
     }
 }
