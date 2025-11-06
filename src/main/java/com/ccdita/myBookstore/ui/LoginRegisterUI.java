@@ -48,9 +48,20 @@ public class LoginRegisterUI {
      */
     public boolean registerUser(Scanner scanner) {
         boolean isUserRegistered = false;
-        // Prompt user for username and password
-        String username = userInput.getUserString("Username:", scanner);
-        String password = userInput.getUserString("Password:", scanner);
+        while (!isUserRegistered) {
+            // Prompt user for username and password
+            String username = userInput.getUserString("Username:", scanner);
+            String password = userInput.getUserString("Password:", scanner);
+            // Check if a user with the given username exists
+            boolean userExists = loginRegisterService.checkUserExists(username);
+            // If a user with the username exists, re-prompt the user until they enter a username that is available
+            if (userExists) {
+                System.out.println("Username " + username + " is taken. Please try again.");
+            } else {
+                isUserRegistered = true;
+                System.out.println("Your account has been registered!");
+            }
+        }
         return isUserRegistered;
     }
 }
