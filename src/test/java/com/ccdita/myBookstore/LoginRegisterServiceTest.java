@@ -3,6 +3,7 @@ package com.ccdita.myBookstore;
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import com.ccdita.myBookstore.processor.LoginRegisterService;
 import com.ccdita.myBookstore.processor.UserManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,17 +14,27 @@ import static org.mockito.Mockito.*;
  */
 public class LoginRegisterServiceTest {
     // Use mockito to test business logic in isolation, removing any direct interactions with the database layer
-    UserManager mockedUserManager = mock(UserManager.class); // Create a mock of UserManager
+    private UserManager mockedUserManager = mock(UserManager.class); // Create a mock of UserManager
     // Manually inject the mock object into LoginRegisterService
-    LoginRegisterService loginRegisterService = new LoginRegisterService(mockedUserManager);
+    private LoginRegisterService loginRegisterService = new LoginRegisterService(mockedUserManager);
+    private String testUsername = "testUsername";
+    private String testPassword = "testPassword";
+    private User testUser;
+
+    /**
+     * Perform setup operations before each test method, ensuring each test method runs in a clean and isolated
+     * environment
+     */
+    @BeforeEach
+    public void setUp() {
+        testUser = new User(testUsername, testPassword);
+    }
 
     @Test
     public void testCheckCredentials() {
         // Test that checkCredentials() returns true if given valid credentials
-        String testUsername = "testUsername";
-        String testPassword = "testPassword";
-        User testUser = new User(testUsername, testPassword);
-        when(mockedUserManager.findUserByUsername(testUsername)).thenReturn(testUser); // Using a mock UserManager object
+        // Using a mock UserManager object
+        when(mockedUserManager.findUserByUsername(testUsername)).thenReturn(testUser);
         boolean userFound = loginRegisterService.checkCredentials(testUsername, testPassword);
 
         assertTrue(userFound, "The given credentials should be correct.");
@@ -33,9 +44,6 @@ public class LoginRegisterServiceTest {
     @Test
     public void testCheckUserExists() {
         // Test that checkUserExists() returns true if given a username that is already taken
-        String testUsername = "testUsername";
-        String testPassword = "testPassword";
-        User testUser = new User(testUsername, testPassword);
         when(mockedUserManager.findUserByUsername(testUsername)).thenReturn(testUser);
         boolean userFound = loginRegisterService.checkUserExists(testUsername);
 

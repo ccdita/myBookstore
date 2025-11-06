@@ -1,6 +1,7 @@
 package com.ccdita.myBookstore;
 
 import com.ccdita.myBookstore.datamanagement.entities.Book;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,14 +9,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BookTest {
 
+    private String title = "Test Title";
+    private String author = "Test Author";
+    private String genre = "Test";
+    private Book testBook1;
+
+    /**
+     * Perform setup operations before each test method, ensuring each test method runs in a clean and isolated
+     * environment
+     */
+    @BeforeEach
+    public void setUp() {
+        testBook1 = new Book(title, author, genre);
+    }
+
     @Test
     public void testBookBasic() {
         // Test that Book() properly constructs Book objects
-        String title = "Test Title";
-        String author = "Test Author";
-        String genre = "Test";
-
-        Book testBook1 = new Book(title, author, genre);
+        testBook1 = new Book(title, author, genre);
 
         assertEquals(title, testBook1.getTitle(), "Title " + title + " does not match testBook1's title");
         assertEquals(author, testBook1.getAuthor(), "Author " + author + " does not match testBook1's author");
@@ -27,11 +38,7 @@ public class BookTest {
     @Test
     public void testToString() {
         // Test that toString() returns a proper String representation of a Book object
-        String title = "Test Title";
-        String author = "Test Author";
-        String genre = "Test";
-
-        Book testBook1 = new Book(title, author, genre);
+        testBook1 = new Book(title, author, genre);
 
         String expectedString = "Book:\n" +
                 "Title: Test Title\n" +
