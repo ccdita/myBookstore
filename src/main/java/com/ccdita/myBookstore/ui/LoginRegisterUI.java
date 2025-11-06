@@ -33,12 +33,20 @@ public class LoginRegisterUI {
      * @return true if the user is successfully logged in, otherwise false
      */
     public boolean loginUser(Scanner scanner) {
-        // Prompt user for username and password
-        String username = userInput.getUserString("Username:", scanner);
-        String password = userInput.getUserString("Password:", scanner);
-        // Check if the given credentials are correct
-        // Return true if the user has entered the correct username and password, otherwise false
-        return loginRegisterService.checkCredentials(username, password);
+        boolean isUserLoggedIn = false;
+        while (!isUserLoggedIn) {
+            // Prompt user for username and password
+            String username = userInput.getUserString("Username:", scanner);
+            String password = userInput.getUserString("Password:", scanner);
+            // Check if the given credentials are correct
+            boolean credentialsMatch = loginRegisterService.checkCredentials(username, password);
+            if (credentialsMatch) {
+                isUserLoggedIn = true;
+            } else {
+                System.out.println("Wrong username and/or password. Please try again.");
+            }
+        }
+        return isUserLoggedIn;
     }
 
     /**
