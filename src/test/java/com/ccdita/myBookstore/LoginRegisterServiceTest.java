@@ -29,4 +29,17 @@ public class LoginRegisterServiceTest {
         assertTrue(userFound, "The given credentials should be correct.");
         verify(mockedUserManager).findUserByUsername(testUsername);
     }
+
+    @Test
+    public void testCheckUserExists() {
+        // Test that checkUserExists() returns true if given a username that is already taken
+        String testUsername = "testUsername";
+        String testPassword = "testPassword";
+        User testUser = new User(testUsername, testPassword);
+        when(mockedUserManager.findUserByUsername(testUsername)).thenReturn(testUser);
+        boolean userFound = loginRegisterService.checkUserExists(testUsername);
+
+        assertTrue(userFound, "The given username should be taken.");
+        verify(mockedUserManager).findUserByUsername(testUsername);
+    }
 }
