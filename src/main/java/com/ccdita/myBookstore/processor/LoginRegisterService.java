@@ -52,4 +52,13 @@ public class LoginRegisterService {
         }
         return userExists;
     }
+
+    /**
+     * Calls UserManager's creatUser() method to create a new User object/account and save it to the database
+     * @param username of new account
+     * @param password of new account
+     */
+    public void registerAccount(String username, String password) {
+        userManager.createUser(username, password);
+    }
 }

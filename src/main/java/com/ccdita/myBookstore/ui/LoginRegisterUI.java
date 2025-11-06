@@ -58,8 +58,10 @@ public class LoginRegisterUI {
             if (userExists) {
                 System.out.println("Username " + username + " is taken. Please try again.");
             } else {
+                // If the username is available, register the account
+                loginRegisterService.registerAccount(username, password);
                 isUserRegistered = true;
-                System.out.println("Your account has been registered!");
+                System.out.println("Your account has been registered! Please log in with your new account.");
             }
         }
         return isUserRegistered;
