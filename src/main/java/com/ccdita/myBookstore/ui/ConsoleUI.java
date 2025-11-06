@@ -47,18 +47,23 @@ public class ConsoleUI {
             menuUI.displayMainMenu();
             int userOption = userInput.getUserOption(MAIN_MENU_OPTIONS, scanner);
 
-            // TODO: Clean up and abstract login/register to separate class
             boolean isUserLoggedIn = false;
             boolean isUserRegistered = false;
             switch(userOption) {
-                case 1: // If the user chooses to log in
+                // ===== LOG IN =====
+                case 1:
                     printHeader("LOG IN");
                     isUserLoggedIn = loginRegisterUI.loginUser(scanner);
                     break;
-                case 2: // If the user chooses to create an account
+                // ===== CREATE AN ACCOUNT =====
+                case 2:
                     printHeader("CREATE AN ACCOUNT");
                     isUserRegistered = loginRegisterUI.registerUser(scanner);
-                case 3: // Exit the application
+                    // If the user successfully registers an account, redirect them to the main menu
+                    if (isUserRegistered) { continue; }
+                    break;
+                // ===== EXIT THE APPLICATION =====
+                case 3:
                     isRunning = false;
                     continue;
             }
