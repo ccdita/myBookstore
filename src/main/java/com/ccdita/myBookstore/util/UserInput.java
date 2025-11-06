@@ -27,7 +27,7 @@ public class UserInput {
         // Keep prompting the user until they enter a valid option
         while (!isValidOption) {
             // Re-prompt the user if their input cannot be cast into an integer
-            userInput = scanner.nextLine();
+            userInput = scanner.nextLine().strip();
             try {
                 intUserInput = Integer.parseInt(userInput);
             } catch (Exception e) {
@@ -54,7 +54,7 @@ public class UserInput {
         String userInput = "";
         do { // Prompt the user until they enter non-empty input
             System.out.println(prompt);
-            userInput = scanner.nextLine();
+            userInput = scanner.nextLine().strip();
         } while(userInput.isEmpty());
         return userInput;
     }

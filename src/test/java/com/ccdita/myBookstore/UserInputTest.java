@@ -1,8 +1,6 @@
 package com.ccdita.myBookstore;
 
 import com.ccdita.myBookstore.util.UserInput;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Scanner;
@@ -33,6 +31,25 @@ public class UserInputTest {
     }
 
     @Test
+    public void testGetUserOptionWithWhitespace() {
+        // Test that getUserOption() returns the cleaned input if it contains leading/trailing whitespace
+        String testInput = "1  ";
+        Scanner scanner = new Scanner(testInput);
+        assertEquals(1, userInput.getUserOption(3, scanner));
+        scanner.close();
+
+        testInput = "     4";
+        scanner = new Scanner(testInput);
+        assertEquals(4, userInput.getUserOption(7, scanner));
+        scanner.close();
+
+        testInput = "  7       ";
+        scanner = new Scanner(testInput);
+        assertEquals(7, userInput.getUserOption(7, scanner));
+        scanner.close();
+    }
+
+    @Test
     public void testGetUserStringValidInput() {
         // Test that getUserString() returns the user's input if it is a valid (non-empty String)
         String testInput = "testUser";
@@ -41,6 +58,25 @@ public class UserInputTest {
         scanner.close();
 
         testInput = "testPassword";
+        scanner = new Scanner(testInput);
+        assertEquals("testPassword", userInput.getUserString("Password:", scanner));
+        scanner.close();
+    }
+
+    @Test
+    public void testGetUserStringWithWhitespace() {
+        // Test that getUserString() returns the cleaned input if it initially contains leading/trailing whitespace
+        String testInput = "     testUser";
+        Scanner scanner = new Scanner(testInput);
+        assertEquals("testUser", userInput.getUserString("Username:", scanner));
+        scanner.close();
+
+        testInput = "testPassword    ";
+        scanner = new Scanner(testInput);
+        assertEquals("testPassword", userInput.getUserString("Password:", scanner));
+        scanner.close();
+
+        testInput = "                  testPassword  ";
         scanner = new Scanner(testInput);
         assertEquals("testPassword", userInput.getUserString("Password:", scanner));
         scanner.close();
