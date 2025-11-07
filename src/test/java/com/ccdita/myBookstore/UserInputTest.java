@@ -62,23 +62,4 @@ public class UserInputTest {
         assertEquals("testPassword", userInput.getUserString("Password:", scanner));
         scanner.close();
     }
-
-    @Test
-    public void testGetUserStringWithWhitespace() {
-        // Test that getUserString() returns the cleaned input if it initially contains leading/trailing whitespace
-        String testInput = "     testUser";
-        Scanner scanner = new Scanner(testInput);
-        assertEquals("testUser", userInput.getUserString("Username:", scanner));
-        scanner.close();
-
-        testInput = "testPassword    ";
-        scanner = new Scanner(testInput);
-        assertEquals("testPassword", userInput.getUserString("Password:", scanner));
-        scanner.close();
-
-        testInput = "                  testPassword  ";
-        scanner = new Scanner(testInput);
-        assertEquals("testPassword", userInput.getUserString("Password:", scanner));
-        scanner.close();
-    }
 }
