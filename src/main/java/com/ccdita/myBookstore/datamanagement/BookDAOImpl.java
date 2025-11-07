@@ -58,4 +58,14 @@ public class BookDAOImpl implements BookDAO {
         query.setParameter("status", status);
         return query.getResultList();
     }
+
+    /**
+     * Updates the "book" table with the given Book object
+     * @param book, Book object to update with
+     */
+    @Override
+    @Transactional
+    public void update(Book book) {
+        entityManager.merge(book);
+    }
 }

@@ -3,6 +3,7 @@ package com.ccdita.myBookstore;
 import com.ccdita.myBookstore.datamanagement.BookDAOImpl;
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,6 +84,7 @@ public class BookDAOImplTest {
 
     @Test
     public void testFindByStatus() {
+        // Test that findByStatus() properly finds and returns a list of books with the appropriate forSale status
         Book testBook2 = new Book("Abracadabra", "Arthur", "Action");
         Book testBook3 = new Book("Boring!", "Ben", "Action");
         Book testBook4 = new Book("Cats and Dogs", "Chris", "Comedy");
@@ -111,5 +113,20 @@ public class BookDAOImplTest {
         entityManager.remove(testBook3);
         entityManager.remove(testBook4);
         entityManager.remove(testBook5);
+    }
+
+    @Test
+    public void testUpdateBook() {
+        // Test that update() properly updates the "book" table
+        TypedQuery<Book> query = entityManager.createQuery("FROM Book WHERE title = :title", Book.class);
+        query.setParameter("title", "testTitle");
+        List<Book> testBookResult = query.getResultList();
+        assertEquals(1, testBookResult.size(), "There is no book to test in the database.");
+        assertTrue(testBookResult.getFirst().getStatus()); // Test that the initial forSale status is true
+
+        testBook.setStatus(false); // Modify the forSale status and update the database
+        bookDAOImpl.update(testBook);
+
+        assertFalse(testBookResult.getFirst().getStatus()); // Test that the new forSale status is false
     }
 }

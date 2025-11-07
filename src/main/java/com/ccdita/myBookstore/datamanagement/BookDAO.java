@@ -17,4 +17,7 @@ public interface BookDAO {
 
     // Finds all the books with the given sale status
     List<Book> findByStatus(boolean status);
+
+    // Update the given Book object
+    void update(Book book);
 }
