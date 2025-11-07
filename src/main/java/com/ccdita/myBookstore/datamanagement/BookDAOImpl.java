@@ -2,9 +2,12 @@ package com.ccdita.myBookstore.datamanagement;
 
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Implements the BookDAO interface
@@ -42,5 +45,17 @@ public class BookDAOImpl implements BookDAO {
     @Transactional
     public void delete(Book book) {
         entityManager.remove(book);
+    }
+
+    /**
+     * Returns books that are up for sale or already sold, depending on the given status
+     * @param status of book; true if it is for sale, false if it is sold
+     * @return a list of books with the given status
+     */
+    @Override
+    public List<Book> findByStatus(boolean status) {
+        TypedQuery<Book> query = entityManager.createQuery("FROM Book WHERE forSale = :status", Book.class);
+        query.setParameter("status", status);
+        return query.getResultList();
     }
 }

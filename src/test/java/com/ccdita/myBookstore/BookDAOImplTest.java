@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -77,5 +79,37 @@ public class BookDAOImplTest {
         // Test that the book is no longer in the database
         assertNull(entityManager.find(Book.class, testBookToDelete.getId()), "Book is found in database " +
                 "it should have been removed.");
+    }
+
+    @Test
+    public void testFindByStatus() {
+        Book testBook2 = new Book("Abracadabra", "Arthur", "Action");
+        Book testBook3 = new Book("Boring!", "Ben", "Action");
+        Book testBook4 = new Book("Cats and Dogs", "Chris", "Comedy");
+        Book testBook5 = new Book("Donkeys", "Daryll", "Comedy");
+        // Set two books' forSale statuses to false
+        testBook2.setStatus(false);
+        testBook3.setStatus(false);
+        // Add books to the database
+        entityManager.persist(testBook2);
+        entityManager.persist(testBook3);
+        entityManager.persist(testBook4);
+        entityManager.persist(testBook5);
+        // Find books for sale and books sold
+        List<Book> booksForSale = bookDAOImpl.findByStatus(true);
+        List<Book> booksSold = bookDAOImpl.findByStatus(false);
+
+        assertEquals(3, booksForSale.size(), "List of books for sale is not correct.");
+        assertEquals(2, booksSold.size(), "List of books sold is not correct.");
+        assertEquals(testBook, booksForSale.get(0), "List of books for sale is not correct.");
+        assertEquals(testBook4, booksForSale.get(1), "List of books for sale is not correct.");
+        assertEquals(testBook5, booksForSale.get(2), "List of books for sale is not correct.");
+        assertEquals(testBook2, booksSold.get(0), "List of books sold is not correct.");
+        assertEquals(testBook3, booksSold.get(1), "List of books sold is not correct.");
+        // Remove books from the database
+        entityManager.remove(testBook2);
+        entityManager.remove(testBook3);
+        entityManager.remove(testBook4);
+        entityManager.remove(testBook5);
     }
 }
