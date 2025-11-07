@@ -14,6 +14,7 @@ public class ConsoleUI {
 
     // Number of options
     private static final int MAIN_MENU_OPTIONS = 3;
+    private static final int USER_MENU_OPTIONS = 3;
 
     Scanner scanner = new Scanner(System.in);
 
@@ -66,6 +67,28 @@ public class ConsoleUI {
                 case 3:
                     isRunning = false;
                     continue;
+            }
+
+            // ===== LOGIN SESSION =====
+            while (isUserLoggedIn) {
+                printHeader("Welcome fellow reader!");
+                menuUI.displayUserMenu();
+                userOption = userInput.getUserOption(USER_MENU_OPTIONS, scanner);
+
+                switch (userOption) {
+                    // ===== BUY BOOKS =====
+                    case 1:
+                        printHeader("BUY BOOKS");
+                        break;
+                    // ===== SELL BOOKS =====
+                    case 2:
+                        printHeader("SELL BOOKS");
+                        break;
+                    // ===== LOG OUT =====
+                    case 3:
+                        isUserLoggedIn = false;
+                        continue;
+                }
             }
         }
         scanner.close();

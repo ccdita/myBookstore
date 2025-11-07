@@ -19,4 +19,15 @@ public class MenuUI {
         System.out.println("3. Exit");
         System.out.println("----------");
     }
+
+    /**
+     * Display the user menu (when user logs in)
+     */
+    public void displayUserMenu() {
+        System.out.println("----------");
+        System.out.println("1. Buy books");
+        System.out.println("2. Sell books");
+        System.out.println("3. Log out");
+        System.out.println("----------");
+    }
 }
