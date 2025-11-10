@@ -40,12 +40,7 @@ public class BookTest {
         // Test that toString() returns a proper String representation of a Book object
         testBook1 = new Book(title, author, genre);
 
-        String expectedString = "Book:\n" +
-                "Title: Test Title\n" +
-                "Author: Test Author\n" +
-                "Genre: Test\n" +
-                "Price: $10.00\n" +
-                "For Sale? true";
+        String expectedString = "Test Title by Test Author | Genre: Test | Price: $10.00";
 
         String testBookInfo1 = testBook1.toString();
 

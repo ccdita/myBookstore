@@ -113,15 +113,8 @@ public class Book {
     public String toString() {
         // Format the book's price to 2 decimal places, then convert to String
         String formattedPrice = String.format("%.2f", this.price);
-
-        String bookInfo = "Book:\n" +
-                "Title: " + this.title + "\n" +
-                "Author: " + this.author + "\n" +
-                "Genre: " + this.genre + "\n" +
-                "Price: $" + formattedPrice + "\n" +
-                "For Sale? " + this.forSale;
-
-        return bookInfo;
+        return this.title + " by " + this.author + " | Genre: " + this.genre + " | Price: $"
+                + formattedPrice;
     }
 
     /**
