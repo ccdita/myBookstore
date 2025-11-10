@@ -13,10 +13,6 @@ import java.util.Scanner;
 @Component
 public class ConsoleUI {
 
-    // Number of options
-    private static final int MAIN_MENU_OPTIONS = 3;
-    private static final int USER_MENU_OPTIONS = 3;
-
     Scanner scanner = new Scanner(System.in);
 
     private MenuUI menuUI;
@@ -50,7 +46,7 @@ public class ConsoleUI {
             // ===== MAIN MENU =====
             printHeader("MYBOOKSTORE");
             menuUI.displayMainMenu();
-            int userOption = userInput.getUserOption(MAIN_MENU_OPTIONS, scanner);
+            int userOption = userInput.getUserOption(menuUI.getMainMenuOptions(), scanner);
 
             User loggedInUser = null;
             boolean isUserRegistered = false;
@@ -77,7 +73,7 @@ public class ConsoleUI {
             while (loggedInUser != null) {
                 printHeader("Welcome " + loggedInUser.getUsername() + "!");
                 menuUI.displayUserMenu();
-                userOption = userInput.getUserOption(USER_MENU_OPTIONS, scanner);
+                userOption = userInput.getUserOption(menuUI.getUserMenuOptions(), scanner);
 
                 switch (userOption) {
                     // ===== BUY BOOKS =====
