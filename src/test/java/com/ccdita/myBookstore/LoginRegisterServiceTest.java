@@ -5,6 +5,9 @@ import com.ccdita.myBookstore.processor.LoginRegisterService;
 import com.ccdita.myBookstore.processor.UserManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
@@ -14,9 +17,12 @@ import static org.mockito.Mockito.*;
  */
 public class LoginRegisterServiceTest {
     // Use mockito to test business logic in isolation, removing any direct interactions with the database layer
-    private UserManager mockedUserManager = mock(UserManager.class); // Create a mock of UserManager
+    @Mock // Create a mock object of UserManager
+    private UserManager mockedUserManager;
     // Manually inject the mock object into LoginRegisterService
-    private LoginRegisterService loginRegisterService = new LoginRegisterService(mockedUserManager);
+    @InjectMocks // Inject mockedUserManager dependency
+    private LoginRegisterService loginRegisterService;
+
     private String testUsername = "testUsername";
     private String testPassword = "testPassword";
     private User testUser;
@@ -27,6 +33,7 @@ public class LoginRegisterServiceTest {
      */
     @BeforeEach
     public void setUp() {
+        MockitoAnnotations.openMocks(this); // Initialize mock injection
         testUser = new User(testUsername, testPassword);
     }
 
