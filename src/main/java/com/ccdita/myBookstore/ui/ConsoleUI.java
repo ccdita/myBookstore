@@ -1,5 +1,6 @@
 package com.ccdita.myBookstore.ui;
 
+import com.ccdita.myBookstore.datamanagement.entities.User;
 import com.ccdita.myBookstore.util.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,18 +21,21 @@ public class ConsoleUI {
 
     private MenuUI menuUI;
     private LoginRegisterUI loginRegisterUI;
+    private BooksUI booksUI;
     private UserInput userInput;
 
     /**
      * Construct a ConsoleUI instance with constructor injection
      * @param menuUI, instance of MenuUI
      * @param loginRegisterUI, instance of LoginRegisterUI
+     * @param booksUI, instance of BooksUI
      * @param userInput, instance of UserInput
      */
     @Autowired
-    public ConsoleUI(MenuUI menuUI, LoginRegisterUI loginRegisterUI, UserInput userInput) {
+    public ConsoleUI(MenuUI menuUI, LoginRegisterUI loginRegisterUI, BooksUI booksUI, UserInput userInput) {
         this.menuUI = menuUI;
         this.loginRegisterUI = loginRegisterUI;
+        this.booksUI = booksUI;
         this.userInput = userInput;
     }
 
@@ -48,13 +52,13 @@ public class ConsoleUI {
             menuUI.displayMainMenu();
             int userOption = userInput.getUserOption(MAIN_MENU_OPTIONS, scanner);
 
-            boolean isUserLoggedIn = false;
+            User loggedInUser = null;
             boolean isUserRegistered = false;
             switch(userOption) {
                 // ===== LOG IN =====
                 case 1:
                     printHeader("LOG IN");
-                    isUserLoggedIn = loginRegisterUI.loginUser(scanner);
+                    loggedInUser = loginRegisterUI.loginUser(scanner);
                     break;
                 // ===== CREATE AN ACCOUNT =====
                 case 2:
@@ -70,8 +74,8 @@ public class ConsoleUI {
             }
 
             // ===== LOGIN SESSION =====
-            while (isUserLoggedIn) {
-                printHeader("Welcome fellow reader!");
+            while (loggedInUser != null) {
+                printHeader("Welcome " + loggedInUser.getUsername() + "!");
                 menuUI.displayUserMenu();
                 userOption = userInput.getUserOption(USER_MENU_OPTIONS, scanner);
 
@@ -79,6 +83,7 @@ public class ConsoleUI {
                     // ===== BUY BOOKS =====
                     case 1:
                         printHeader("BUY BOOKS");
+                        booksUI.buyBook(scanner, loggedInUser);
                         break;
                     // ===== SELL BOOKS =====
                     case 2:
@@ -86,8 +91,7 @@ public class ConsoleUI {
                         break;
                     // ===== LOG OUT =====
                     case 3:
-                        isUserLoggedIn = false;
-                        continue;
+                        loggedInUser = null;
                 }
             }
         }

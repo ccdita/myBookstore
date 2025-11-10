@@ -1,6 +1,8 @@
 package com.ccdita.myBookstore.ui;
 
+import com.ccdita.myBookstore.datamanagement.entities.User;
 import com.ccdita.myBookstore.processor.LoginRegisterService;
+import com.ccdita.myBookstore.processor.UserManager;
 import com.ccdita.myBookstore.util.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,38 +17,41 @@ public class LoginRegisterUI {
 
     private UserInput userInput;
     private LoginRegisterService loginRegisterService;
+    private UserManager userManager;
 
     /**
      * Constructs a LoginRegisterUI instance with constructor injection
      * @param userInput, instance of UserInput for getting user's input
      * @param loginRegisterService, instance of LoginRegisterService
+     * @param userManager, instance of UserManager
      */
     @Autowired
-    public LoginRegisterUI(UserInput userInput, LoginRegisterService loginRegisterService) {
+    public LoginRegisterUI(UserInput userInput, LoginRegisterService loginRegisterService, UserManager userManager) {
         this.userInput = userInput;
         this.loginRegisterService = loginRegisterService;
+        this.userManager = userManager;
     }
 
     /**
      * Logs the user in
      * @param scanner, Scanner object for user input
-     * @return true if the user is successfully logged in, otherwise false
+     * @return the User that is logged in
      */
-    public boolean loginUser(Scanner scanner) {
-        boolean isUserLoggedIn = false;
-        while (!isUserLoggedIn) {
+    public User loginUser(Scanner scanner) {
+        User loggedInUser = null;
+        while (loggedInUser == null) {
             // Prompt user for username and password
             String username = userInput.getUserString("Username:", scanner);
             String password = userInput.getUserString("Password:", scanner);
             // Check if the given credentials are correct
             boolean credentialsMatch = loginRegisterService.checkCredentials(username, password);
             if (credentialsMatch) {
-                isUserLoggedIn = true;
+                loggedInUser = userManager.findUserByUsername(username);
             } else {
                 System.out.println("Wrong username and/or password. Please try again.");
             }
         }
-        return isUserLoggedIn;
+        return loggedInUser;
     }
 
     /**
