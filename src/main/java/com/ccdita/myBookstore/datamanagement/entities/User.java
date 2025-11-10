@@ -2,8 +2,6 @@ package com.ccdita.myBookstore.datamanagement.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-
 /**
  * Represents User objects; stores information about each user
  */
@@ -39,7 +37,7 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.readerCash = 0.00;
+        this.readerCash = 10.00;
     }
 
     /**
@@ -70,6 +68,19 @@ public class User {
      */
     public double getReaderCash() {
         return this.readerCash;
+    }
+
+    /**
+     * Deducts the given amount from the user's ReaderCash
+     * @param amountToDeduct from the user's ReaderCash
+     * @returns the updated ReaderCash amount, otherwise null if the transaction cannot be made (amountToDeduct is
+     * greater than user's ReaderCash amount)
+     */
+    public Double deductReaderCash(double amountToDeduct) {
+        if (this.readerCash - amountToDeduct < 0) {
+            return null;
+        }
+        return this.readerCash -= amountToDeduct;
     }
 
     /**
