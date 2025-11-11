@@ -18,7 +18,7 @@ public class UserInput {
      * @return user's input
      */
     public int getUserOption(int numOptions, Scanner scanner) {
-        System.out.println("Select an option:"); // Display the prompt
+        System.out.println("Select an option or type '0' to exit:"); // Display the prompt
         // Initialize the following variables since there is no input yet
         String userInput = "";
         int intUserInput = -1; // Parse userInput into integer type
@@ -35,7 +35,7 @@ public class UserInput {
                 continue;
             }
             // If the user's input can be cast into an integer, check that it is a valid option
-            if (intUserInput < 1 || intUserInput > numOptions) {
+            if (intUserInput < 0 || intUserInput > numOptions) {
                 System.out.println("Please enter a valid option from the list.");
                 continue;
             }

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 public class MenuUI {
 
     // Number of options
-    private static final int MAIN_MENU_OPTIONS = 3;
-    private static final int USER_MENU_OPTIONS = 3;
+    private static final int MAIN_MENU_OPTIONS = 2;
+    private static final int USER_MENU_OPTIONS = 2;
 
     /**
      * Display the main menu (when user first starts the application)
@@ -20,7 +20,6 @@ public class MenuUI {
         System.out.println("----------");
         System.out.println("1. Log in");
         System.out.println("2. Create an account");
-        System.out.println("3. Exit");
         System.out.println("----------");
     }
 
@@ -31,7 +30,6 @@ public class MenuUI {
         System.out.println("----------");
         System.out.println("1. Buy books");
         System.out.println("2. Sell books");
-        System.out.println("3. Log out");
         System.out.println("----------");
     }
 

@@ -44,9 +44,9 @@ public class BooksUI {
         while (bookToBuy == null) {
             // Ask the user which book they would like to buy
             int userOption = userInput.getUserOption(booksForSale.size(), scanner);
+            if (userOption == 0) { return; } // Return to user menu if user's input is 0
             bookToBuy = bookManager.buyBook(userOption, user, booksForSale); // Buy the chosen book
             if (bookToBuy == null) {
-                // TODO: Implement exit feature
                 System.out.println("You do not have enough ReaderCash to buy this book. Please choose another book " +
                         "or enter '0' to exit.");
             }

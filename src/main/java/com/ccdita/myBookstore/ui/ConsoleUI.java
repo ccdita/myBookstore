@@ -64,7 +64,7 @@ public class ConsoleUI {
                     if (isUserRegistered) { continue; }
                     break;
                 // ===== EXIT THE APPLICATION =====
-                case 3:
+                case 0:
                     isRunning = false;
                     continue;
             }
@@ -86,7 +86,7 @@ public class ConsoleUI {
                         printHeader("SELL BOOKS");
                         break;
                     // ===== LOG OUT =====
-                    case 3:
+                    case 0:
                         loggedInUser = null;
                 }
             }
