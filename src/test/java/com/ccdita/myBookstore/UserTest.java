@@ -32,7 +32,7 @@ public class UserTest {
          * Test that deductReaderCash() properly deducts the given amount if it is less than the user's ReaderCash
          * amount
          */
-        double amountToDeduct = 10.00 ;
+        double amountToDeduct = 10.00;
         Double remainingReaderCash = testUser1.deductReaderCash(amountToDeduct);
         assertEquals(0.00, remainingReaderCash, 0.00, "deductReaderCash() does not properly " +
                 "deduct the given amount from the user's ReaderCash amount.");
@@ -41,11 +41,20 @@ public class UserTest {
     @Test
     public void testDeductReaderCashGreaterAmount() {
         // Test that deductReaderCash() returns null if the given amount is greater than the user's ReaderCash amount
-        double amountToDeduct = 20.00 ;
+        double amountToDeduct = 20.00;
         assertNull(testUser1.deductReaderCash(amountToDeduct), "deductReaderCash() does not return null " +
                 "if the given amount is greater than the user's ReaderCash amount.");
         assertEquals(10.00, testUser1.getReaderCash(), "deductReaderCash() should not modify the " +
                 "user's current ReaderCash amount if the given amount is greater.");
+    }
+
+    @Test
+    public void testAddReaderCash() {
+        // Test that addReaderCash() properly adds the given amount to the user's ReaderCash
+        double amountToAdd = 20.00;
+        testUser1.addReaderCash(amountToAdd);
+        assertEquals(30.00, testUser1.getReaderCash(), "addReaderCash() does not properly add the " +
+                "given amount to the user's ReaderCash.");
     }
 
     @Test

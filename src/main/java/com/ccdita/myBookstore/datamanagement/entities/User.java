@@ -84,6 +84,14 @@ public class User {
     }
 
     /**
+     * Adds the given amount to the user's ReaderCash
+     * @param amountToAdd to the user's ReaderCash
+     */
+    public void addReaderCash(double amountToAdd) {
+        this.readerCash += amountToAdd;
+    }
+
+    /**
      * Checks if the given User object matches an existing user in the database
      * Prevents duplicate users (based on the username) from being made
      * @param o   the reference object with which to compare.
