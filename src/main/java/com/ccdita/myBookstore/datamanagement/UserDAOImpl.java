@@ -74,4 +74,14 @@ public class UserDAOImpl implements UserDAO {
     public User findById(int id) {
         return entityManager.find(User.class, id);
     }
+
+    /**
+     * Updates the "user" table with the given User object
+     * @param user, User object to update with
+     */
+    @Override
+    @Transactional
+    public void update(User user) {
+        entityManager.merge(user);
+    }
 }

@@ -3,12 +3,15 @@ package com.ccdita.myBookstore;
 import com.ccdita.myBookstore.datamanagement.UserDAOImpl;
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -97,5 +100,21 @@ public class UserDAOImplTest {
         assertEquals(testUser, foundUser, "findById() does not properly find the user with the given ID.");
         assertEquals(testUser.getPassword(), foundUser.getPassword(), "findById() does not properly find " +
                 "the user with the given ID.");
+    }
+
+    @Test
+    public void testUpdateUser() {
+        // Test that update() properly updates the "user" table
+        TypedQuery<User> query = entityManager.createQuery("FROM User WHERE username = :username", User.class);
+        query.setParameter("username", "testUser");
+        List<User> testUserResult = query.getResultList();
+        assertEquals(1, testUserResult.size(), "There is no user to test in the database.");
+        assertEquals(10.00, testUserResult.getFirst().getReaderCash());
+
+        testUser.addReaderCash(20.00);
+        userDAOImpl.update(testUser);
+
+        assertEquals(30.00, testUser.getReaderCash(), "update() does not update the user in the " +
+                "database.");
     }
 }
