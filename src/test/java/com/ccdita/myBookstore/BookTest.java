@@ -4,8 +4,7 @@ import com.ccdita.myBookstore.datamanagement.entities.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BookTest {
 
@@ -46,5 +45,28 @@ public class BookTest {
 
         assertEquals(expectedString, testBookInfo1, "testBookInfo1's String representation does not match the" +
                 " expected string");
+    }
+
+    @Test
+    public void testEqualsIdenticalBooks() {
+        // Test that equals() returns true for identical Books
+        String title = "testTitle";
+        String author = "testAuthor";
+        String genre = "testGenre";
+        Book otherBook = new Book(title, author, genre);
+        Book thisBook = new Book(title, author, genre);
+
+        boolean result = thisBook.equals(otherBook);
+        assertTrue(result, "Both books are not considered equal even though they are the same book.");
+    }
+
+    @Test
+    public void testEqualsNonIdenticalBooks() {
+        // Test that equals() returns false for non-identical Books
+        Book otherBook = new Book("testTitle", "testAuthor", "testGenre");
+        Book thisBook = new Book("test", "testAuthor", "testGenre");
+
+        boolean result = thisBook.equals(otherBook);
+        assertFalse(result, "Both books are considered equal even though they are different books.");
     }
 }

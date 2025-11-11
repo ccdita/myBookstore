@@ -4,14 +4,13 @@ import com.ccdita.myBookstore.datamanagement.entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
 
     private String username = "Test User";
     private String password = "testpass123";
-    User testUser1;
+    private User testUser1;
 
     @BeforeEach
     public void setUp() {
@@ -47,5 +46,27 @@ public class UserTest {
                 "if the given amount is greater than the user's ReaderCash amount.");
         assertEquals(10.00, testUser1.getReaderCash(), "deductReaderCash() should not modify the " +
                 "user's current ReaderCash amount if the given amount is greater.");
+    }
+
+    @Test
+    public void testEqualsIdenticalUsers() {
+        // Test that equals() returns true for identical Users
+        String username = "testUsername";
+        String password = "testPassword";
+        User otherUser = new User(username, password);
+        User thisUser = new User(username, password);
+
+        boolean result = thisUser.equals(otherUser);
+        assertTrue(result, "Both users are not considered equal even though they are the same user.");
+    }
+
+    @Test
+    public void testEqualsNonIdenticalUsers() {
+        // Test that equals() returns false for non-identical Users
+        User otherUser = new User("testUsername", "testPassword");
+        User thisUser = new User("test", "testPassword");
+
+        boolean result = thisUser.equals(otherUser);
+        assertFalse(result, "Both users are considered equal even though they are different users.");
     }
 }

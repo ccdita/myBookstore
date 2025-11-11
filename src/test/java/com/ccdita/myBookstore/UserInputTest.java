@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserInputTest {
 
-    UserInput userInput = new UserInput();
+    private UserInput userInput = new UserInput();
 
     @Test
     public void testGetUserOptionValidInput() {
