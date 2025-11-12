@@ -84,6 +84,7 @@ public class ConsoleUI {
                     // ===== SELL BOOKS =====
                     case 2:
                         printHeader("SELL BOOKS");
+                        booksUI.sellBook(scanner, loggedInUser);
                         break;
                     // ===== LOG OUT =====
                     case 0:
