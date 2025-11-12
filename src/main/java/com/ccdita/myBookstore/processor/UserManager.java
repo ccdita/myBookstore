@@ -43,4 +43,25 @@ public class UserManager {
     public User findUserByUsername(String username) {
         return userDAO.findByUsername(username);
     }
+
+    /**
+     * Adds the given amount to the user's ReaderCash and updates the given user in the "user" table
+     * @param user to update
+     */
+    public void addReaderCash(User user, Double amountToAdd) {
+        user.addReaderCash(amountToAdd);
+        userDAO.update(user);
+    }
+
+    /**
+     * Deducts the given amount from the user's ReaderCash and updates the given user in the "user" table
+     * @param user to update
+     * @returns the updated ReaderCash amount, otherwise null if the transaction cannot be made (amountToDeduct is
+     * greater than user's ReaderCash amount)
+     */
+    public Double deductReaderCash(User user, Double amountToDeduct) {
+        Double remainingReaderCash = user.deductReaderCash(amountToDeduct);
+        userDAO.update(user);
+        return remainingReaderCash;
+    }
 }
