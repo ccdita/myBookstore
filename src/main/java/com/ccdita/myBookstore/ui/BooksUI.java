@@ -82,11 +82,11 @@ public class BooksUI {
     public void sellBook(Scanner scanner, User user) {
         System.out.println("Please enter the following information. Enter 'exit' at any time to exit.");
         String title = userInput.getUserString("Title: ", scanner);
-        if (title.equals("exit")) { return; }
+        if (title.equalsIgnoreCase("exit")) { return; }
         String author = userInput.getUserString("Author: ", scanner);
-        if (author.equals("exit")) { return; }
+        if (author.equalsIgnoreCase("exit")) { return; }
         String genre = userInput.getUserString("Genre: ", scanner);
-        if (genre.equals("exit")) { return; }
+        if (genre.equalsIgnoreCase("exit")) { return; }
 
         Book bookToSell = transactionManager.sellBook(user, title, author, genre);
         System.out.println(bookToSell.getTitle() + " by " + bookToSell.getAuthor() + " is now for sale. Thank you!");

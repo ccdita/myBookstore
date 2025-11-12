@@ -54,7 +54,7 @@ public class UserInput {
         String userInput = "";
         do { // Prompt the user until they enter non-empty input
             System.out.println(prompt);
-            userInput = scanner.nextLine();
+            userInput = scanner.nextLine().strip();
         } while(userInput.isEmpty());
         return userInput;
     }

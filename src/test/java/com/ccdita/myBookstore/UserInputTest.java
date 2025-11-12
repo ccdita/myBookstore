@@ -62,4 +62,23 @@ public class UserInputTest {
         assertEquals("testPassword", userInput.getUserString("Password:", scanner));
         scanner.close();
     }
+
+    @Test
+    public void testGetUserStringInputWithWhitespace() {
+        // Test that getUserString() returns the user's input if it contains whitespace
+        String testInput = "testInput      ";
+        Scanner scanner = new Scanner(testInput);
+        assertEquals("testInput", userInput.getUserString("Prompt:", scanner));
+        scanner.close();
+
+        testInput = "    testInput";
+        scanner = new Scanner(testInput);
+        assertEquals("testInput", userInput.getUserString("Prompt:", scanner));
+        scanner.close();
+
+        testInput = "    testInput   ";
+        scanner = new Scanner(testInput);
+        assertEquals("testInput", userInput.getUserString("Prompt:", scanner));
+        scanner.close();
+    }
 }
