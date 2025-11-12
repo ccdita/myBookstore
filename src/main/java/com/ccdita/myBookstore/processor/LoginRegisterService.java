@@ -2,12 +2,12 @@ package com.ccdita.myBookstore.processor;
 
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Handles business logic for logging in and creating an account
  */
-@Component
+@Service
 public class LoginRegisterService {
 
     private UserService userService;
