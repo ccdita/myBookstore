@@ -3,7 +3,7 @@ package com.ccdita.myBookstore.ui;
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import com.ccdita.myBookstore.processor.BookManager;
-import com.ccdita.myBookstore.processor.TransactionManager;
+import com.ccdita.myBookstore.processor.BookTransactionManager;
 import com.ccdita.myBookstore.util.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,19 +19,19 @@ public class BooksUI {
 
     private UserInput userInput;
     private BookManager bookManager;
-    private TransactionManager transactionManager;
+    private BookTransactionManager bookTransactionManager;
 
     /**
      * Constructs a BooksUI instance with constructor injection
      * @param userInput, instance of UserInput for getting user's input
      * @param bookManager, instance of BookManager
-     * @param transactionManager, instance of TransactionManager
+     * @param bookTransactionManager, instance of BookTransactionManager
      */
     @Autowired
-    public BooksUI (UserInput userInput, BookManager bookManager, TransactionManager transactionManager) {
+    public BooksUI (UserInput userInput, BookManager bookManager, BookTransactionManager bookTransactionManager) {
         this.userInput = userInput;
         this.bookManager = bookManager;
-        this.transactionManager = transactionManager;
+        this.bookTransactionManager = bookTransactionManager;
     }
 
     /**
@@ -50,7 +50,7 @@ public class BooksUI {
             // Ask the user which book they would like to buy
             int userOption = userInput.getUserOption(booksForSale.size(), scanner);
             if (userOption == 0) { return; } // Return to user menu if user's input is 0
-            bookToBuy = transactionManager.buyBook(userOption, user, booksForSale); // Buy the chosen book
+            bookToBuy = bookTransactionManager.buyBook(userOption, user, booksForSale); // Buy the chosen book
             if (bookToBuy == null) {
                 System.out.println("You do not have enough ReaderCash to buy this book. Please choose another book " +
                         "or enter '0' to exit.");
@@ -88,7 +88,7 @@ public class BooksUI {
         String genre = userInput.getUserString("Genre: ", scanner);
         if (genre.equalsIgnoreCase("exit")) { return; }
 
-        Book bookToSell = transactionManager.sellBook(user, title, author, genre);
+        Book bookToSell = bookTransactionManager.sellBook(user, title, author, genre);
         System.out.println(bookToSell.getTitle() + " by " + bookToSell.getAuthor() + " is now for sale. Thank you!");
     }
 }

@@ -3,7 +3,7 @@ package com.ccdita.myBookstore;
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import com.ccdita.myBookstore.processor.BookManager;
-import com.ccdita.myBookstore.processor.TransactionManager;
+import com.ccdita.myBookstore.processor.BookTransactionManager;
 import com.ccdita.myBookstore.processor.UserManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,17 +17,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 /**
- * Test class for TransactionManager
+ * Test class for BookTransactionManager
  */
-public class TransactionManagerTest {
+public class BookTransactionManagerTest {
 
     @Mock // Create a mock object of BookManager
     private BookManager mockedBookManager;
     @Mock // Create a mock object of UserManager
     private UserManager mockedUserManager;
 
-    @InjectMocks // Inject the mocks into TransactionManager
-    private TransactionManager transactionManager;
+    @InjectMocks // Inject the mocks into BookTransactionManager
+    private BookTransactionManager bookTransactionManager;
 
     @BeforeEach
     public void setUp() {
@@ -44,7 +44,7 @@ public class TransactionManagerTest {
         User user = new User("testUser1", "testPassword1");
         // Specify return value of mock BookManager object
         when(mockedBookManager.addBook(title, author, genre)).thenReturn(bookToSell);
-        Book bookSold = transactionManager.sellBook(user, title, author, genre);
+        Book bookSold = bookTransactionManager.sellBook(user, title, author, genre);
         assertEquals(bookToSell, bookSold, "sellBook() does not sell the correct book.");
     }
 
@@ -61,7 +61,7 @@ public class TransactionManagerTest {
 
         User user = new User("testUser1", "testPassword1");
 
-        Book bookBought = transactionManager.buyBook(userOption, user, booksForSale);
+        Book bookBought = bookTransactionManager.buyBook(userOption, user, booksForSale);
         assertEquals(bookToBuy, bookBought, "buyBook() does not purchase the correct book.");
     }
 }

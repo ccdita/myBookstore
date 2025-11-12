@@ -1,7 +1,5 @@
 package com.ccdita.myBookstore.processor;
 
-import com.ccdita.myBookstore.datamanagement.BookDAO;
-import com.ccdita.myBookstore.datamanagement.UserDAO;
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +12,13 @@ import java.util.List;
  * Abstracts away specific implementations with communicating with the mySQL database
  */
 @Component
-public class TransactionManager {
+public class BookTransactionManager {
 
     private BookManager bookManager;
     private UserManager userManager;
 
     @Autowired
-    public TransactionManager(BookManager bookManager, UserManager userManager) {
+    public BookTransactionManager(BookManager bookManager, UserManager userManager) {
         this.bookManager = bookManager;
         this.userManager = userManager;
     }
