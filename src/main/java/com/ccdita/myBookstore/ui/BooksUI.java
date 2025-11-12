@@ -56,7 +56,11 @@ public class BooksUI {
                         "or enter '0' to exit.");
             }
         }
-        System.out.println("You have purchased: " + bookToBuy.getTitle() + " by " + bookToBuy.getAuthor());
+        String formattedPrice = String.format("%.2f", bookToBuy.getPrice());
+        String formattedReaderCash = String.format("%.2f", user.getReaderCash());
+        System.out.println("You have purchased: " + bookToBuy.getTitle() + " by " + bookToBuy.getAuthor() + " for $" +
+                formattedPrice + ".");
+        System.out.println("You now have $" + formattedReaderCash + " in ReaderCash.");
     }
 
     /**
@@ -80,6 +84,7 @@ public class BooksUI {
      * @param user, the user currently logged in
      */
     public void sellBook(Scanner scanner, User user) {
+
         System.out.println("Please enter the following information. Enter 'exit' at any time to exit.");
         String title = userInput.getUserString("Title: ", scanner);
         if (title.equalsIgnoreCase("exit")) { return; }
@@ -89,6 +94,10 @@ public class BooksUI {
         if (genre.equalsIgnoreCase("exit")) { return; }
 
         Book bookToSell = bookTransactionService.sellBook(user, title, author, genre);
+        String formattedPrice = String.format("%.2f", bookToSell.getPrice());
+        String formattedReaderCash = String.format("%.2f", user.getReaderCash());
         System.out.println(bookToSell.getTitle() + " by " + bookToSell.getAuthor() + " is now for sale. Thank you!");
+        System.out.println("You earned $" + formattedPrice + " in ReaderCash. Your ReaderCash balance is " +
+                "now: $" + formattedReaderCash + ".");
     }
 }
