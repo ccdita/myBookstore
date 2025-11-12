@@ -2,8 +2,8 @@ package com.ccdita.myBookstore.ui;
 
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import com.ccdita.myBookstore.datamanagement.entities.User;
-import com.ccdita.myBookstore.processor.BookManager;
-import com.ccdita.myBookstore.processor.BookTransactionManager;
+import com.ccdita.myBookstore.processor.BookService;
+import com.ccdita.myBookstore.processor.BookTransactionService;
 import com.ccdita.myBookstore.util.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,20 +18,20 @@ import java.util.Scanner;
 public class BooksUI {
 
     private UserInput userInput;
-    private BookManager bookManager;
-    private BookTransactionManager bookTransactionManager;
+    private BookService bookService;
+    private BookTransactionService bookTransactionService;
 
     /**
      * Constructs a BooksUI instance with constructor injection
      * @param userInput, instance of UserInput for getting user's input
-     * @param bookManager, instance of BookManager
-     * @param bookTransactionManager, instance of BookTransactionManager
+     * @param bookService, instance of BookService
+     * @param bookTransactionService, instance of BookTransactionService
      */
     @Autowired
-    public BooksUI (UserInput userInput, BookManager bookManager, BookTransactionManager bookTransactionManager) {
+    public BooksUI (UserInput userInput, BookService bookService, BookTransactionService bookTransactionService) {
         this.userInput = userInput;
-        this.bookManager = bookManager;
-        this.bookTransactionManager = bookTransactionManager;
+        this.bookService = bookService;
+        this.bookTransactionService = bookTransactionService;
     }
 
     /**
@@ -40,7 +40,7 @@ public class BooksUI {
      * @param user, the user currently logged in
      */
     public void buyBook(Scanner scanner, User user) {
-        List<Book> booksForSale = bookManager.findBooksByStatus(true); // Get a list of all the books for sale
+        List<Book> booksForSale = bookService.findBooksByStatus(true); // Get a list of all the books for sale
         displayBooksForSale(booksForSale); // Display the books for sale
         if (booksForSale.isEmpty()) { return; } // Exit the method if there are no books for sale
 
@@ -50,7 +50,7 @@ public class BooksUI {
             // Ask the user which book they would like to buy
             int userOption = userInput.getUserOption(booksForSale.size(), scanner);
             if (userOption == 0) { return; } // Return to user menu if user's input is 0
-            bookToBuy = bookTransactionManager.buyBook(userOption, user, booksForSale); // Buy the chosen book
+            bookToBuy = bookTransactionService.buyBook(userOption, user, booksForSale); // Buy the chosen book
             if (bookToBuy == null) {
                 System.out.println("You do not have enough ReaderCash to buy this book. Please choose another book " +
                         "or enter '0' to exit.");
@@ -88,7 +88,7 @@ public class BooksUI {
         String genre = userInput.getUserString("Genre: ", scanner);
         if (genre.equalsIgnoreCase("exit")) { return; }
 
-        Book bookToSell = bookTransactionManager.sellBook(user, title, author, genre);
+        Book bookToSell = bookTransactionService.sellBook(user, title, author, genre);
         System.out.println(bookToSell.getTitle() + " by " + bookToSell.getAuthor() + " is now for sale. Thank you!");
     }
 }

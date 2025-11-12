@@ -3,7 +3,7 @@ package com.ccdita.myBookstore.processor;
 import com.ccdita.myBookstore.datamanagement.BookDAO;
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,17 +11,17 @@ import java.util.List;
  * Manages book-related CRUD operations
  * Abstracts away specific implementations with communicating with the mySQL database
  */
-@Component
-public class BookManager {
+@Service
+public class BookService {
 
     private BookDAO bookDAO;
 
     /**
-     * Constructs a BookManager instance with constructor injection
+     * Constructs a BookService instance with constructor injection
      * @param bookDAO, implementation of the BookDAO interface
      */
     @Autowired
-    public BookManager(BookDAO bookDAO) {
+    public BookService(BookDAO bookDAO) {
         this.bookDAO = bookDAO;
     }
 

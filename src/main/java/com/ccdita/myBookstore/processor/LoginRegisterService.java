@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginRegisterService {
 
-    private UserManager userManager;
+    private UserService userService;
 
     /**
      * Constructs a LoginRegisterService instance with constructor injection
-     * @param userManager, UserManager instance for interacting with the database
+     * @param userService, UserService instance for interacting with the database
      */
     @Autowired
-    public LoginRegisterService(UserManager userManager) {
-        this.userManager = userManager;
+    public LoginRegisterService(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -30,7 +30,7 @@ public class LoginRegisterService {
     public boolean checkCredentials(String username, String password) {
         boolean credentialsMatch = false; // Initialize to false before checks
         // Find the user in the database. If the user exists, check if the passwords match
-        User user = userManager.findUserByUsername(username);
+        User user = userService.findUserByUsername(username);
         if (user != null) {
             if (user.getPassword().equals(password)) {
                 credentialsMatch = true;
@@ -46,7 +46,7 @@ public class LoginRegisterService {
      */
     public boolean checkUserExists(String username) {
         boolean userExists = false;
-        User user = userManager.findUserByUsername(username);
+        User user = userService.findUserByUsername(username);
         if (user != null) { // If a user exists, return true
             userExists = true;
         }
@@ -54,11 +54,11 @@ public class LoginRegisterService {
     }
 
     /**
-     * Calls UserManager's creatUser() method to create a new User object/account and save it to the database
+     * Calls UserService's creatUser() method to create a new User object/account and save it to the database
      * @param username of new account
      * @param password of new account
      */
     public void registerAccount(String username, String password) {
-        userManager.createUser(username, password);
+        userService.createUser(username, password);
     }
 }

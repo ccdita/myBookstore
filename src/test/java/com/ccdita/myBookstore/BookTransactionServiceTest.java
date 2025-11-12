@@ -2,9 +2,9 @@ package com.ccdita.myBookstore;
 
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import com.ccdita.myBookstore.datamanagement.entities.User;
-import com.ccdita.myBookstore.processor.BookManager;
-import com.ccdita.myBookstore.processor.BookTransactionManager;
-import com.ccdita.myBookstore.processor.UserManager;
+import com.ccdita.myBookstore.processor.BookService;
+import com.ccdita.myBookstore.processor.BookTransactionService;
+import com.ccdita.myBookstore.processor.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,17 +17,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 /**
- * Test class for BookTransactionManager
+ * Test class for BookTransactionService
  */
-public class BookTransactionManagerTest {
+public class BookTransactionServiceTest {
 
-    @Mock // Create a mock object of BookManager
-    private BookManager mockedBookManager;
-    @Mock // Create a mock object of UserManager
-    private UserManager mockedUserManager;
+    @Mock // Create a mock object of BookService
+    private BookService mockedBookService;
+    @Mock // Create a mock object of UserService
+    private UserService mockedUserService;
 
-    @InjectMocks // Inject the mocks into BookTransactionManager
-    private BookTransactionManager bookTransactionManager;
+    @InjectMocks // Inject the mocks into BookTransactionService
+    private BookTransactionService bookTransactionService;
 
     @BeforeEach
     public void setUp() {
@@ -42,9 +42,9 @@ public class BookTransactionManagerTest {
         String genre = "Action";
         Book bookToSell = new Book(title, author, genre);
         User user = new User("testUser1", "testPassword1");
-        // Specify return value of mock BookManager object
-        when(mockedBookManager.addBook(title, author, genre)).thenReturn(bookToSell);
-        Book bookSold = bookTransactionManager.sellBook(user, title, author, genre);
+        // Specify return value of mock BookService object
+        when(mockedBookService.addBook(title, author, genre)).thenReturn(bookToSell);
+        Book bookSold = bookTransactionService.sellBook(user, title, author, genre);
         assertEquals(bookToSell, bookSold, "sellBook() does not sell the correct book.");
     }
 
@@ -61,7 +61,7 @@ public class BookTransactionManagerTest {
 
         User user = new User("testUser1", "testPassword1");
 
-        Book bookBought = bookTransactionManager.buyBook(userOption, user, booksForSale);
+        Book bookBought = bookTransactionService.buyBook(userOption, user, booksForSale);
         assertEquals(bookToBuy, bookBought, "buyBook() does not purchase the correct book.");
     }
 }

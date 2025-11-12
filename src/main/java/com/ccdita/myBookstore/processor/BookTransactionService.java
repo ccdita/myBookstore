@@ -3,7 +3,7 @@ package com.ccdita.myBookstore.processor;
 import com.ccdita.myBookstore.datamanagement.entities.Book;
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,16 +11,16 @@ import java.util.List;
  * Manages transaction-related CRUD operations
  * Abstracts away specific implementations with communicating with the mySQL database
  */
-@Component
-public class BookTransactionManager {
+@Service
+public class BookTransactionService {
 
-    private BookManager bookManager;
-    private UserManager userManager;
+    private BookService bookService;
+    private UserService userService;
 
     @Autowired
-    public BookTransactionManager(BookManager bookManager, UserManager userManager) {
-        this.bookManager = bookManager;
-        this.userManager = userManager;
+    public BookTransactionService(BookService bookService, UserService userService) {
+        this.bookService = bookService;
+        this.userService = userService;
     }
 
     /**
@@ -32,8 +32,8 @@ public class BookTransactionManager {
      * @returns the sold book
      */
     public Book sellBook(User user, String title, String author, String genre) {
-        Book bookToSell = bookManager.addBook(title, author, genre);
-        userManager.addReaderCash(user, bookToSell.getPrice());
+        Book bookToSell = bookService.addBook(title, author, genre);
+        userService.addReaderCash(user, bookToSell.getPrice());
         return bookToSell;
     }
 
@@ -46,11 +46,11 @@ public class BookTransactionManager {
      */
     public Book buyBook(int userOption, User user, List<Book> booksForSale) {
         Book bookToBuy = booksForSale.get(userOption - 1); // Get the object of the book the user wants to buy
-        Double remainingReaderCash = userManager.deductReaderCash(user, bookToBuy.getPrice());
+        Double remainingReaderCash = userService.deductReaderCash(user, bookToBuy.getPrice());
         // If the user can't afford the book, return null
         if (remainingReaderCash == null) { return null; }
         // If the user can afford the book, update the user's ReaderCash and the book's forSale status
-        bookManager.placeBookForSale(bookToBuy);
+        bookService.placeBookForSale(bookToBuy);
         return bookToBuy;
     }
 }

@@ -2,7 +2,7 @@ package com.ccdita.myBookstore.ui;
 
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import com.ccdita.myBookstore.processor.LoginRegisterService;
-import com.ccdita.myBookstore.processor.UserManager;
+import com.ccdita.myBookstore.processor.UserService;
 import com.ccdita.myBookstore.util.UserInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,19 +17,19 @@ public class LoginRegisterUI {
 
     private UserInput userInput;
     private LoginRegisterService loginRegisterService;
-    private UserManager userManager;
+    private UserService userService;
 
     /**
      * Constructs a LoginRegisterUI instance with constructor injection
      * @param userInput, instance of UserInput for getting user's input
      * @param loginRegisterService, instance of LoginRegisterService
-     * @param userManager, instance of UserManager
+     * @param userService, instance of UserService
      */
     @Autowired
-    public LoginRegisterUI(UserInput userInput, LoginRegisterService loginRegisterService, UserManager userManager) {
+    public LoginRegisterUI(UserInput userInput, LoginRegisterService loginRegisterService, UserService userService) {
         this.userInput = userInput;
         this.loginRegisterService = loginRegisterService;
-        this.userManager = userManager;
+        this.userService = userService;
     }
 
     /**
@@ -46,7 +46,7 @@ public class LoginRegisterUI {
             // Check if the given credentials are correct
             boolean credentialsMatch = loginRegisterService.checkCredentials(username, password);
             if (credentialsMatch) {
-                loggedInUser = userManager.findUserByUsername(username);
+                loggedInUser = userService.findUserByUsername(username);
             } else {
                 System.out.println("Wrong username and/or password. Please try again.");
             }

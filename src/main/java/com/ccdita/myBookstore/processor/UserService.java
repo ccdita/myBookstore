@@ -3,23 +3,23 @@ package com.ccdita.myBookstore.processor;
 import com.ccdita.myBookstore.datamanagement.UserDAO;
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Manages user-related CRUD operations
  * Abstracts away specific implementations with communicating with the mySQL database
  */
-@Component
-public class UserManager {
+@Service
+public class UserService {
 
     private UserDAO userDAO;
 
     /**
-     * Constructs a UserManager instance with constructor injection
+     * Constructs a UserService instance with constructor injection
      * @param userDAO, implementation of the UserDAO interface
      */
     @Autowired
-    public UserManager(UserDAO userDAO) {
+    public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 

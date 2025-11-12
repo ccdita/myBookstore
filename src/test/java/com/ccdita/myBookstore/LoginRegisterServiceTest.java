@@ -2,7 +2,7 @@ package com.ccdita.myBookstore;
 
 import com.ccdita.myBookstore.datamanagement.entities.User;
 import com.ccdita.myBookstore.processor.LoginRegisterService;
-import com.ccdita.myBookstore.processor.UserManager;
+import com.ccdita.myBookstore.processor.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,10 +17,10 @@ import static org.mockito.Mockito.*;
  */
 public class LoginRegisterServiceTest {
     // Use mockito to test business logic in isolation, removing any direct interactions with the database layer
-    @Mock // Create a mock object of UserManager
-    private UserManager mockedUserManager;
+    @Mock // Create a mock object of UserService
+    private UserService mockedUserService;
     // Manually inject the mock object into LoginRegisterService
-    @InjectMocks // Inject mockedUserManager dependency
+    @InjectMocks // Inject mockedUserService dependency
     private LoginRegisterService loginRegisterService;
 
     private String testUsername = "testUsername";
@@ -40,21 +40,21 @@ public class LoginRegisterServiceTest {
     @Test
     public void testCheckCredentials() {
         // Test that checkCredentials() returns true if given valid credentials
-        // Using a mock UserManager object
-        when(mockedUserManager.findUserByUsername(testUsername)).thenReturn(testUser);
+        // Using a mock UserService object
+        when(mockedUserService.findUserByUsername(testUsername)).thenReturn(testUser);
         boolean userFound = loginRegisterService.checkCredentials(testUsername, testPassword);
 
         assertTrue(userFound, "The given credentials should be correct.");
-        verify(mockedUserManager).findUserByUsername(testUsername);
+        verify(mockedUserService).findUserByUsername(testUsername);
     }
 
     @Test
     public void testCheckUserExists() {
         // Test that checkUserExists() returns true if given a username that is already taken
-        when(mockedUserManager.findUserByUsername(testUsername)).thenReturn(testUser);
+        when(mockedUserService.findUserByUsername(testUsername)).thenReturn(testUser);
         boolean userFound = loginRegisterService.checkUserExists(testUsername);
 
         assertTrue(userFound, "The given username should be taken.");
-        verify(mockedUserManager).findUserByUsername(testUsername);
+        verify(mockedUserService).findUserByUsername(testUsername);
     }
 }
