@@ -2,8 +2,6 @@
 
 Welcome to myBookStore! myBookStore is a command-line application that enables users to create an account, log in, and purchase and sell books. I built this application to demonstrate what I have learned so far in Spring.
 
-_(Demo coming soon!)_
-
 ## Built With:
 
 __[Spring Boot](https://spring.io/projects/spring-boot/) for simplifying Spring configuration__<br>
@@ -18,10 +16,6 @@ __[JUnit](https://junit.org/) and [Mockito](https://site.mockito.org/) for unit 
 ## Design
 
 myBookstore is implemented using N-tier architecture. The data access layer is abstracted through Data Access Object interfaces, and business logic is handled by service classes. Finally, UI classes within the presentation layer handle all user interactions and send requests to the logic layer for processing. Altogether, this design promotes modularity, security, and maintainability.
-
-## Getting Started
-
-_(In Progress)_
 
 ## Lessons Learned:
 
